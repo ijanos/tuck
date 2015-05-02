@@ -5,7 +5,7 @@ usage:
   tuck list
   tuck list <collection>
   tuck list <package> [package root]
-  tuck link <package>
+  tuck link <package> [package root]
   tuck sync <collection>
 
 Tuck reads collections from tuck.conf
@@ -109,10 +109,13 @@ def link_packagefiles(package, root="~"):
 
 def cmd_link(args):
     if not args:
-        print("Which package?\nusage: tuck link <package>")
+        print("Which package?\nusage: tuck link <package> [package root]")
     else:
-        for package in args:
-            link_package(package, '~')
+        if len(args) < 2:
+            package_root = '~'
+        else:
+            package_root = args[1]
+        link_package(args[0], package_root)
 
 
 def link_package(package, root):
