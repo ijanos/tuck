@@ -5,6 +5,7 @@ usage:
   tuck list
   tuck list <collection>
   tuck list <package> [package root]
+  tuck list orphans
   tuck link <package> [package root]
   tuck sync <collection>
 
