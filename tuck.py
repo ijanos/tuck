@@ -138,7 +138,7 @@ def cmd_list_package(package, root):
 
 
 def cmd_list(args):
-    packages = [p for p in os.listdir(".") if os.path.isdir(p)]
+    packages = [p for p in os.listdir(".") if os.path.isdir(p) and p[0] != '.']
     if not args:
         pretty_print_packagelist(packages)
     elif args[0] == "orphans":
@@ -171,7 +171,6 @@ def cmd_sync(args):
         link_package(package, root)
     print("Sync complete.")
 
-# TODO ignore hidden directories
 
 if __name__ == '__main__':
     commands = {
