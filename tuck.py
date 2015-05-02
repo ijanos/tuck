@@ -85,33 +85,35 @@ def iterate_package(package, root):
 def link_packagefiles(package, root="~"):
     for (original, link) in iterate_package(package, root):
         print("\tLinking {} -> {}".format(link, original), end=' ')
-        if os.path.exists(link):
-            if os.path.samefile(link, original):
-                print("existed")
-                continue
-            elif os.path.isdir(link):
-                print("SKIPPED\nTarget is a directory!")
-                continue
+        try:
+            if os.path.exists(link):
+                if os.path.samefile(link, original):
+                    print("existed")
+                    continue
+                elif os.path.isdir(link):
+                    print("SKIPPED\nTarget is a directory!")
+                    continue
+                elif os.path.islink(link):
+                    os.unlink(link)
+                    print("updated")
+                else:
+                    os.rename(link, link + ".tuck")
+                    print("renamed existing file")
             elif os.path.islink(link):
                 os.unlink(link)
                 print("updated")
-            else:
-                os.rename(link, link + ".tuck")
-                print("renamed existing file")
-        elif os.path.islink(link):
-            os.unlink(link)
-            print("updated")
-        if not os.path.exists(os.path.dirname(link)):
-            os.makedirs(os.path.dirname(link))
-        os.symlink(original, link)
-        print("done")
+            if not os.path.exists(os.path.dirname(link)):
+                os.makedirs(os.path.dirname(link))
+            os.symlink(original, link)
+            print("done")
+        except PermissionError:
+            print("Permission error")
 
 
 def cmd_link(args):
     if not args:
         print("Which package?\nusage: tuck link <package>")
     else:
-        # TODO optional argument for root
         for package in args:
             link_package(package, '~')
 
