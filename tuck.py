@@ -2,12 +2,9 @@
 """tuck - symlink dotfiles
 
 usage:
-  tuck <command> <arguemnts>
-
-examples:
   tuck list
   tuck list <collection>
-  tuck list <package>
+  tuck list <package> [package root]
   tuck link <package>
   tuck sync <collection>
 
@@ -153,7 +150,11 @@ def cmd_list(args):
         if args[0] in config.sections():
             pretty_print_packagelist(config[args[0]])
         elif args[0] in packages:
-            cmd_list_package(args[0], '~')
+            if len(args) > 1:
+                package_root = args[1]
+            else:
+                package_root = '~'
+            cmd_list_package(args[0], package_root)
         else:
             print("No such package or collection")
 
