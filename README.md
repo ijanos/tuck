@@ -28,6 +28,9 @@ like a git repository.
   realtive to `[package root]`, defaults to $HOME  
 `tuck sync <collection>` link all packages in a collection
 
+# License
+
+See COPYING file.
 
 # Similar tools
 
