@@ -150,14 +150,15 @@ def cmd_list(args):
         pretty_print_packagelist(orphans)
     else:
         config = load_tuckfile()
-        if args[0] in config.sections():
-            pretty_print_packagelist(config[args[0]])
-        elif args[0] in packages:
+        query = args[0].strip("/")
+        if query in config.sections():
+            pretty_print_packagelist(config[query])
+        elif query in packages:
             if len(args) > 1:
                 package_root = args[1]
             else:
                 package_root = '~'
-            cmd_list_package(args[0], package_root)
+            cmd_list_package(query, package_root)
         else:
             print("No such package or collection")
 
