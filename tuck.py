@@ -75,8 +75,7 @@ def iterate_package(package, root):
             source = os.path.abspath(os.path.join(dirpath, f))
             # if filepath[:8] == ".config/":
             # TODO replace with $XDG_CONFIG_HOME if defined
-            destination = os.path.expanduser(
-                           os.path.join(root, dirpath[len(package)+1:], f))
+            destination = os.path.expanduser(os.path.join(root, dirpath[len(package)+1:], f))
             yield (source, destination)
 
 
