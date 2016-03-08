@@ -115,7 +115,7 @@ def cmd_link(args):
             package_root = '~'
         else:
             package_root = args[1]
-        link_package(args[0], package_root)
+        link_package(args[0].strip("/"), package_root)
 
 
 def link_package(package, root):
