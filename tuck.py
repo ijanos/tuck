@@ -42,6 +42,8 @@ def pretty_print_packagelist(packages):
         Status.partial:      "P",
         Status.missing:      "?"
     }
+    if not packages:
+        print("Empty directory")
     for p in packages:
         print("[{}] {}".format(icon[package_status(p, '~')], p))
 
