@@ -14,6 +14,7 @@ Tuck reads collections from tuck.conf
 
 import os
 import sys
+import filecmp
 from configparser import ConfigParser
 from enum import Enum, unique
 from itertools import chain
@@ -137,7 +138,11 @@ def cmd_list_package(package, root):
     for (src, dest) in iterate_package(package, root):
         mark = " "
         if os.path.exists(dest) and os.path.samefile(src, dest):
-            mark = "x"
+            mark = "L"
+        elif os.path.exists(dest) and filecmp.cmp(src, dest):
+            mark = "="
+        elif os.path.exists(dest):
+            mark = "!"
         print("[{}] {} -> {}".format(mark, src, dest))
 
 
