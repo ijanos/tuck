@@ -16,7 +16,7 @@ import os
 import sys
 from configparser import ConfigParser
 from enum import Enum, unique
-import itertools as it
+from itertools import chain
 
 
 @unique
@@ -147,7 +147,7 @@ def cmd_list(args):
         pretty_print_packagelist(packages)
     elif args[0] == "orphans":
         config = load_tuckfile()
-        owned = set(it.chain.from_iterable([config[s] for s in config]))
+        owned = set(chain.from_iterable([config[s] for s in config]))
         orphans = set(packages) - owned
         pretty_print_packagelist(orphans)
     else:
